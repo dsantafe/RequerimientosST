@@ -1,0 +1,326 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RequirementsSTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Applicative">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DevelopmentEngineer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="FirstMidName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Priority">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Requirement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AreaID" Type="int" />
+          <Property Name="ApplicativeID" Type="int" />
+          <Property Name="ScopeRequirement" Type="varchar" MaxLength="1000" />
+          <Property Name="ApplicationDate" Type="datetime" />
+          <Property Name="PriorityID" Type="int" />
+          <Property Name="DevelopmentEngineerID" Type="int" />
+          <Property Name="DevelopmentDays" Type="int" />
+          <Property Name="DevelopmentDate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_Area_Applicative">
+          <End Role="Applicative" Type="Self.Applicative" Multiplicity="0..1" />
+          <End Role="Requirement" Type="Self.Requirement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applicative">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Requirement">
+              <PropertyRef Name="ApplicativeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Area_DevelopmentEngineer">
+          <End Role="DevelopmentEngineer" Type="Self.DevelopmentEngineer" Multiplicity="0..1" />
+          <End Role="Requirement" Type="Self.Requirement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DevelopmentEngineer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Requirement">
+              <PropertyRef Name="DevelopmentEngineerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Area_Priority">
+          <End Role="Priority" Type="Self.Priority" Multiplicity="0..1" />
+          <End Role="Requirement" Type="Self.Requirement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Priority">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Requirement">
+              <PropertyRef Name="PriorityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Requirement_Area">
+          <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+          <End Role="Requirement" Type="Self.Requirement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Requirement">
+              <PropertyRef Name="AreaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RequirementsSTModelStoreContainer">
+          <EntitySet Name="Applicative" EntityType="Self.Applicative" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DevelopmentEngineer" EntityType="Self.DevelopmentEngineer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Priority" EntityType="Self.Priority" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Requirement" EntityType="Self.Requirement" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Area_Applicative" Association="Self.FK_Area_Applicative">
+            <End Role="Applicative" EntitySet="Applicative" />
+            <End Role="Requirement" EntitySet="Requirement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Area_DevelopmentEngineer" Association="Self.FK_Area_DevelopmentEngineer">
+            <End Role="DevelopmentEngineer" EntitySet="DevelopmentEngineer" />
+            <End Role="Requirement" EntitySet="Requirement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Area_Priority" Association="Self.FK_Area_Priority">
+            <End Role="Priority" EntitySet="Priority" />
+            <End Role="Requirement" EntitySet="Requirement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Requirement_Area" Association="Self.FK_Requirement_Area">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="Requirement" EntitySet="Requirement" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RequirementsSTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Applicative">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Requirement" Relationship="Self.FK_Area_Applicative" FromRole="Applicative" ToRole="Requirement" />
+        </EntityType>
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Requirement" Relationship="Self.FK_Requirement_Area" FromRole="Area" ToRole="Requirement" />
+        </EntityType>
+        <EntityType Name="DevelopmentEngineer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstMidName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Requirement" Relationship="Self.FK_Area_DevelopmentEngineer" FromRole="DevelopmentEngineer" ToRole="Requirement" />
+        </EntityType>
+        <EntityType Name="Priority">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Requirement" Relationship="Self.FK_Area_Priority" FromRole="Priority" ToRole="Requirement" />
+        </EntityType>
+        <EntityType Name="Requirement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AreaID" Type="Int32" />
+          <Property Name="ApplicativeID" Type="Int32" />
+          <Property Name="ScopeRequirement" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ApplicationDate" Type="DateTime" Precision="3" />
+          <Property Name="PriorityID" Type="Int32" />
+          <Property Name="DevelopmentEngineerID" Type="Int32" />
+          <Property Name="DevelopmentDays" Type="Int32" />
+          <Property Name="DevelopmentDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Applicative" Relationship="Self.FK_Area_Applicative" FromRole="Requirement" ToRole="Applicative" />
+          <NavigationProperty Name="Area" Relationship="Self.FK_Requirement_Area" FromRole="Requirement" ToRole="Area" />
+          <NavigationProperty Name="DevelopmentEngineer" Relationship="Self.FK_Area_DevelopmentEngineer" FromRole="Requirement" ToRole="DevelopmentEngineer" />
+          <NavigationProperty Name="Priority" Relationship="Self.FK_Area_Priority" FromRole="Requirement" ToRole="Priority" />
+        </EntityType>
+        <Association Name="FK_Area_Applicative">
+          <End Role="Applicative" Type="Self.Applicative" Multiplicity="0..1" />
+          <End Role="Requirement" Type="Self.Requirement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applicative">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Requirement">
+              <PropertyRef Name="ApplicativeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Requirement_Area">
+          <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+          <End Role="Requirement" Type="Self.Requirement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Requirement">
+              <PropertyRef Name="AreaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Area_DevelopmentEngineer">
+          <End Role="DevelopmentEngineer" Type="Self.DevelopmentEngineer" Multiplicity="0..1" />
+          <End Role="Requirement" Type="Self.Requirement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DevelopmentEngineer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Requirement">
+              <PropertyRef Name="DevelopmentEngineerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Area_Priority">
+          <End Role="Priority" Type="Self.Priority" Multiplicity="0..1" />
+          <End Role="Requirement" Type="Self.Requirement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Priority">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Requirement">
+              <PropertyRef Name="PriorityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Applicative" EntityType="Self.Applicative" />
+          <EntitySet Name="Area" EntityType="Self.Area" />
+          <EntitySet Name="DevelopmentEngineer" EntityType="Self.DevelopmentEngineer" />
+          <EntitySet Name="Priority" EntityType="Self.Priority" />
+          <EntitySet Name="Requirement" EntityType="Self.Requirement" />
+          <AssociationSet Name="FK_Area_Applicative" Association="Self.FK_Area_Applicative">
+            <End Role="Applicative" EntitySet="Applicative" />
+            <End Role="Requirement" EntitySet="Requirement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Requirement_Area" Association="Self.FK_Requirement_Area">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="Requirement" EntitySet="Requirement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Area_DevelopmentEngineer" Association="Self.FK_Area_DevelopmentEngineer">
+            <End Role="DevelopmentEngineer" EntitySet="DevelopmentEngineer" />
+            <End Role="Requirement" EntitySet="Requirement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Area_Priority" Association="Self.FK_Area_Priority">
+            <End Role="Priority" EntitySet="Priority" />
+            <End Role="Requirement" EntitySet="Requirement" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RequirementsSTModelStoreContainer" CdmEntityContainer="DBContext">
+          <EntitySetMapping Name="Applicative">
+            <EntityTypeMapping TypeName="RequirementsSTModel.Applicative">
+              <MappingFragment StoreEntitySet="Applicative">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Area">
+            <EntityTypeMapping TypeName="RequirementsSTModel.Area">
+              <MappingFragment StoreEntitySet="Area">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DevelopmentEngineer">
+            <EntityTypeMapping TypeName="RequirementsSTModel.DevelopmentEngineer">
+              <MappingFragment StoreEntitySet="DevelopmentEngineer">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstMidName" ColumnName="FirstMidName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Priority">
+            <EntityTypeMapping TypeName="RequirementsSTModel.Priority">
+              <MappingFragment StoreEntitySet="Priority">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Requirement">
+            <EntityTypeMapping TypeName="RequirementsSTModel.Requirement">
+              <MappingFragment StoreEntitySet="Requirement">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+                <ScalarProperty Name="ApplicativeID" ColumnName="ApplicativeID" />
+                <ScalarProperty Name="ScopeRequirement" ColumnName="ScopeRequirement" />
+                <ScalarProperty Name="ApplicationDate" ColumnName="ApplicationDate" />
+                <ScalarProperty Name="PriorityID" ColumnName="PriorityID" />
+                <ScalarProperty Name="DevelopmentEngineerID" ColumnName="DevelopmentEngineerID" />
+                <ScalarProperty Name="DevelopmentDays" ColumnName="DevelopmentDays" />
+                <ScalarProperty Name="DevelopmentDate" ColumnName="DevelopmentDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

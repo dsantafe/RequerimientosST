@@ -1,0 +1,81 @@
+﻿@model IEnumerable<RequerimientosST.BL.DTOs.RequirementDTO>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Requirements</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+</p>
+<table class="table table-responsive">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AreaID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApplicativeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ScopeRequirement)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApplicationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PriorityID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DevelopmentEngineerID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DevelopmentDays)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DevelopmentDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TestDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Area.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Applicative.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScopeRequirement)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Priority.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DevelopmentEngineer.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DevelopmentDays)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DevelopmentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TestDate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-sm btn-warning" }) |                
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-sm btn-danger" })
+            </td>
+        </tr>
+    }
+
+</table>
