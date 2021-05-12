@@ -68,8 +68,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DevelopmentDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DevelopmentDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DevelopmentDate, "", new { @class = "text-danger" })
+                <input type="date" id="DevelopmentDate" name="DevelopmentDate" class="form-control" value="@Model.DevelopmentDate.Value.ToString("yyyy-MM-dd")" required />                
             </div>
         </div>
 

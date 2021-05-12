@@ -18,6 +18,7 @@ namespace RequerimientosST.BL.DTOs
         public string ScopeRequirement { get; set; }
 
         [Display(Name = "Application Date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy/MM/dd}")]
         public Nullable<System.DateTime> ApplicationDate { get; set; }
 
         [Display(Name = "Priority")]
